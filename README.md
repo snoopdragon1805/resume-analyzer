@@ -69,7 +69,7 @@ JSON Response
 ### Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/resume-analyzer.git
+git clone https://github.com/snoopdragon1805/resume-analyzer.git
 ```
 
 ---
