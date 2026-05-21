@@ -2,11 +2,11 @@ from fastapi import FastAPI, UploadFile, File, Form
 from utils.skill_extractor import extract_skills
 from scoring.ats_score import calculate_ats_score
 from fastapi.middleware.cors import CORSMiddleware
-#from ai.suggestions import generate_resume_suggestions
 import fitz
 import os
 
 app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
