@@ -1,7 +1,9 @@
 from fastapi import FastAPI, UploadFile, File, Form
+from fastapi.middleware.cors import CORSMiddleware
+
 from utils.skill_extractor import extract_skills
 from scoring.ats_score import calculate_ats_score
-from fastapi.middleware.cors import CORSMiddleware
+
 import fitz
 import os
 
@@ -16,6 +18,7 @@ app.add_middleware(
 )
 
 UPLOAD_FOLDER = "uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.post("/upload-resume")
 async def upload_resume(
