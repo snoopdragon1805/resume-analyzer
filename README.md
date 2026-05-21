@@ -56,12 +56,12 @@ JSON Response
 
 ### Home Page
 
-(Add screenshot here later)
+![Home Page](assets/home_page.png)
 
 ### ATS Analysis Result
 
-(Add screenshot here later)
-
+![ATS Result](assets/result_1.png)
+![ATS Result](assets/result_2.png)
 ---
 
 ## Installation
