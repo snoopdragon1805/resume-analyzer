@@ -52,11 +52,20 @@ async def upload_resume(
     # Calculate ATS score
     ats_result = calculate_ats_score(resume_skills,jd_skills)
 
-    suggestions = generate_resume_suggestions(
-    resume_skills,
-    ats_result["missing_skills"],
-    ats_result["ats_score"]
-    )
+    try:
+
+        suggestions = generate_resume_suggestions(
+            resume_skills,
+            ats_result["missing_skills"],
+            ats_result["ats_score"]
+        )
+
+    except Exception as e:
+
+        print("AI Suggestions Error:", e)
+
+        suggestions = "AI suggestions temporarily unavailable."
+        
 
     return {
     "filename": file.filename,
