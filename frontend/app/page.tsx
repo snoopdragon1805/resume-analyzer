@@ -1,5 +1,13 @@
 "use client";
 
+import { useDropzone } from "react-dropzone";
+
+import {
+  UploadCloud,
+  FileText,
+  Sparkles,
+} from "lucide-react";
+
 import { useState } from "react";
 
 export default function Home() {
@@ -12,6 +20,22 @@ export default function Home() {
   const [result, setResult] = useState<any>(null);
 
   const [loading, setLoading] = useState(false);
+
+  const onDrop = (acceptedFiles: File[]) => {
+
+    if (acceptedFiles.length > 0) {
+      setFile(acceptedFiles[0]);
+    }
+  };
+
+  const { getRootProps, getInputProps } =
+    useDropzone({
+      onDrop,
+      accept: {
+        "application/pdf": [".pdf"],
+      },
+      multiple: false,
+    });
 
   const handleSubmit = async () => {
 
@@ -80,20 +104,45 @@ export default function Home() {
 
           </label>
 
-          <input
-            type="file"
-            accept=".pdf"
-            className="w-full bg-black/30 border border-gray-700 p-4 rounded-xl cursor-pointer"
-            onChange={(e) => {
+          <div
+            {...getRootProps()}
+            className="border-2 border-dashed border-cyan-400/40 rounded-2xl p-10 text-center bg-black/20 hover:bg-black/30 transition-all duration-300 cursor-pointer"
+          >
 
-              if (e.target.files) {
-                setFile(e.target.files[0]);
-              }
-            }}
-          />
+            <input {...getInputProps()} />
+
+            <UploadCloud
+              className="mx-auto mb-4 text-cyan-400"
+              size={60}
+            />
+
+            <p className="text-lg font-medium mb-2">
+
+              Drag & Drop Resume PDF
+
+            </p>
+
+            <p className="text-gray-400 text-sm">
+
+              or click to browse files
+
+            </p>
+
+            {file && (
+
+              <div className="mt-6 flex items-center justify-center gap-2 text-green-400">
+
+                <FileText size={20} />
+
+                <span>{file.name}</span>
+
+              </div>
+            )}
+
+          </div>
 
         </div>
-
+ 
         {/* Job Description */}
         <div className="mb-8">
 
@@ -122,9 +171,19 @@ export default function Home() {
           className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:scale-[1.02] transition-all duration-300 text-white py-4 rounded-xl font-bold text-lg shadow-lg"
         >
 
-          {loading
-            ? "Analyzing..."
-            : "Analyze Resume"}
+          {loading ? (
+            <div className="flex items-center justify-center gap-3">
+
+              <Sparkles className="animate-pulse" />
+
+              <span>
+                AI is analyzing your resume...
+              </span>
+
+            </div>
+          ) : (
+            "Analyze Resume"
+          )}
 
         </button>
 
