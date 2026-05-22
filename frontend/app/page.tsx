@@ -236,6 +236,23 @@ export default function Home() {
 
             </div>
 
+            {/* AI Suggestions */}
+            <div className="bg-black/30 border border-purple-400/20 rounded-2xl p-6 mt-8">
+
+              <h3 className="text-2xl font-bold mb-5 text-purple-400">
+
+                AI Suggestions
+
+              </h3>
+
+              <div className="text-gray-300 whitespace-pre-wrap leading-7">
+
+                {result.ai_suggestions}
+
+              </div>
+
+            </div>
+
           </div>
         )}
 

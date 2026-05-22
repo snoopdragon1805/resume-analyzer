@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from utils.skill_extractor import extract_skills
 from scoring.ats_score import calculate_ats_score
+from ai.suggestions import generate_resume_suggestions
 
 import fitz
 import os
@@ -51,12 +52,16 @@ async def upload_resume(
     # Calculate ATS score
     ats_result = calculate_ats_score(resume_skills,jd_skills)
 
-    #suggestions = generate_resume_suggestions(extracted_text,job_description,ats_result)
+    suggestions = generate_resume_suggestions(
+    resume_skills,
+    ats_result["missing_skills"],
+    ats_result["ats_score"]
+    )
 
     return {
     "filename": file.filename,
     "resume_skills": resume_skills,
     "jd_skills": jd_skills,
     "ats_analysis": ats_result,
-    #"ai_suggestions": suggestions
+    "ai_suggestions": suggestions
     }

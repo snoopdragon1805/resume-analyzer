@@ -1,39 +1,51 @@
-import google.generativeai as genai
+from groq import Groq
+from dotenv import load_dotenv
 
-# Configure Gemini
-genai.configure(api_key="AIzaSyDvLRCBNjwdYRH37X7P-rTUynOl0lFn42Q")
+import os
 
-model = genai.GenerativeModel("gemini-2.0-flash")
+load_dotenv()
+
+client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
+)
+
 
 def generate_resume_suggestions(
-    resume_text,
-    job_description,
-    ats_analysis
+    resume_skills,
+    missing_skills,
+    ats_score
 ):
 
     prompt = f"""
-    You are an ATS resume optimization assistant.
+    You are an expert ATS resume reviewer.
 
-    Analyze the following resume and job description.
+    Resume Skills:
+    {resume_skills}
 
-    Resume:
-    {resume_text}
+    Missing Skills:
+    {missing_skills}
 
-    Job Description:
-    {job_description}
-
-    ATS Analysis:
-    {ats_analysis}
+    ATS Score:
+    {ats_score}
 
     Give:
-    1. Missing technical skills
-    2. Resume improvement suggestions
-    3. ATS optimization tips
-    4. Better project wording suggestions
+    1. Resume improvement suggestions
+    2. Skills to learn
+    3. ATS optimization advice
+    4. Better project wording ideas
 
     Keep response concise and professional.
     """
 
-    response = model.generate_content(prompt)
+    completion = client.chat.completions.create(
+        model="llama3-8b-8192",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=0.7,
+    )
 
-    return response.text
+    return completion.choices[0].message.content
