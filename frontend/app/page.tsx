@@ -8,6 +8,8 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { motion } from "framer-motion";
+
 import { useState } from "react";
 
 export default function Home() {
@@ -86,8 +88,12 @@ export default function Home() {
 
     <main className="min-h-screen bg-gradient-to-br from-slate-950 via-gray-900 to-slate-800 p-10 text-white">
 
-      <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg border border-white/20 p-10 rounded-3xl shadow-2xl">
-
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg border border-white/20 p-10 rounded-3xl shadow-2xl"
+      >
         {/* Heading */}
         <h1 className="text-5xl font-extrabold mb-10 text-center bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
 
@@ -190,11 +196,19 @@ export default function Home() {
         {/* Results */}
         {result && (
 
-          <div className="mt-12">
-
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mt-12"
+          >
             {/* ATS Score */}
-            <div className="bg-black/30 border border-cyan-400/30 rounded-2xl p-8 mb-8 text-center">
-
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mt-12"
+            >
               <h2 className="text-2xl font-semibold mb-3">
 
                 ATS Score
@@ -207,7 +221,7 @@ export default function Home() {
 
               </p>
 
-            </div>
+            </motion.div>
 
             {/* Skills Grid */}
             <div className="grid md:grid-cols-2 gap-8">
@@ -312,10 +326,10 @@ export default function Home() {
 
             </div>
 
-          </div>
+          </motion.div>
         )}
 
-      </div>
+      </motion.div>
 
     </main>
   );
